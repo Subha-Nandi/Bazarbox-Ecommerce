@@ -1,5 +1,6 @@
 import { products } from "../data/products.js";
 
+
 export let cart = JSON.parse(localStorage.getItem('cart'));
 
 if (!cart) {
@@ -17,7 +18,7 @@ function saveTostorage() {
 }
 
 
-export function addToCart(productId) {
+export function addToCart(productId,number) {
     let matchingItem;
 
     cart.forEach((cartItem) => {
@@ -27,17 +28,19 @@ export function addToCart(productId) {
     });
 
     if (matchingItem) {
-        matchingItem.quantity += 1;
+        matchingItem.quantity += Number(number);
     }
     else {
         cart.push({
             productId: productId,
-            quantity: 1
+            quantity: Number(number)
         });
     }
+    document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity() || 0;
 
     saveTostorage();
 }
+
 
 
 export function removeFromCart(productId) {
@@ -50,6 +53,17 @@ export function removeFromCart(productId) {
     });
 
     cart = newCart;
-
+document.querySelector('.js-checkout-cart-quantity').innerHTML = `${updateCartQuantity()} items`;
     saveTostorage();
+}
+
+
+export function updateCartQuantity(){
+    let cartQuantity = 0;
+        cart.forEach((cartItem) => {
+            cartQuantity += cartItem.quantity;
+        });
+        return cartQuantity; 
+        
+        
 }

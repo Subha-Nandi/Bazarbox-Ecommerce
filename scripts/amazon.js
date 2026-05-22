@@ -1,6 +1,8 @@
-import { cart,addToCart } from "../data/cart.js";
+import { cart, addToCart, updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+
+document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
 
 let productsHTML = '';
 
@@ -29,7 +31,7 @@ products.forEach((product) => {
             </div>
 
             <div class="product-quantity-container">
-                <select>
+                <select class="js-quantity-selector" data-product-id = ${product.id}>
                 <option selected value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -61,19 +63,22 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-function updateCartQuantity(){
-    let cartQuantity = 0;
-        cart.forEach((cartItem) => {
-            cartQuantity += cartItem.quantity;
-        });
-
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-}
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+
     button.addEventListener('click', () => {
+
         const productId = button.dataset.productId;
-        addToCart(productId);
+
+        // Current product container
+        const productContainer = button.closest('.product-container');
+        const selectElement = productContainer.querySelector('.js-quantity-selector');
+        const quantity = Number(selectElement.value) || 1;
+        addToCart(productId, quantity);
+        selectElement.value = "1";
+
+        // Update cart UI
         updateCartQuantity();
     });
+
 });
