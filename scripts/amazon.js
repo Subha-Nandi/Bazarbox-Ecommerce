@@ -1,13 +1,17 @@
 import { cart, addToCart, updateCartQuantity } from "../data/cart.js";
-import { products} from "../data/products.js";
+import { products, loadProducts } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
-document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
+loadProducts(renderProductsGrid);
 
-let productsHTML = '';
+function renderProductsGrid() {
 
-products.forEach((product) => {
-    productsHTML += `
+    document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
+
+    let productsHTML = '';
+
+    products.forEach((product) => {
+        productsHTML += `
      <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
@@ -60,27 +64,28 @@ products.forEach((product) => {
             </button>
             </div>
             `;
-})
+    })
 
 
-document.querySelector('.js-products-grid').innerHTML = productsHTML;
+    document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 
-document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+    document.querySelectorAll('.js-add-to-cart').forEach((button) => {
 
-    button.addEventListener('click', () => {
+        button.addEventListener('click', () => {
 
-        const productId = button.dataset.productId;
+            const productId = button.dataset.productId;
 
-        // Current product container
-        const productContainer = button.closest('.product-container');
-        const selectElement = productContainer.querySelector('.js-quantity-selector');
-        const quantity = Number(selectElement.value) || 1;
-        addToCart(productId, quantity);
-        selectElement.value = "1";
+            // Current product container
+            const productContainer = button.closest('.product-container');
+            const selectElement = productContainer.querySelector('.js-quantity-selector');
+            const quantity = Number(selectElement.value) || 1;
+            addToCart(productId, quantity);
+            selectElement.value = "1";
 
-        // Update cart UI
-        updateCartQuantity();
+            // Update cart UI
+            updateCartQuantity();
+        });
+
     });
-
-});
+}

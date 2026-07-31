@@ -29,37 +29,59 @@ class Product {
     this.priceCents = productsDetails.priceCents;
   }
 
-  getStarsUrl(){
-return `images/ratings/rating-${this.rating.stars * 10}.png`
-}
-
-  getPrice(){
-   return `$${formatCurrency(this.priceCents)}`;
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`
   }
 
-  extraInfoHTML(){
-    return '';
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`;
+  }
+
+  extraInfoHTML() {
+    return ' ';
   }
 }
 
 
-class Clothing extends Product{
+class Clothing extends Product {
   sizeChartLink;
 
-  constructor(productsDetails){
+  constructor(productsDetails) {
     super(productsDetails);
     this.sizeChartLink = productsDetails.sizeChartLink;
   }
 
-  extraInfoHTML(){
+  extraInfoHTML() {
     return `
     <a href='${this.sizeChartLink}' target="_blank">
     Size chart
-    <a/>`;
+    </a>`;
   }
 }
 
+export let products = [];
 
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+    products = JSON.parse(xhr.response).map((productsDetails) => {
+      if (productsDetails.type === 'clothing') {
+        return new Clothing(productsDetails);
+      }
+      return new Product(productsDetails);
+    });
+
+    console.log('load products');
+
+    fun();
+  });
+
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.send();
+}
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -725,3 +747,4 @@ export const products = [
   }
   return new Product(productsDetails);
 });
+*/

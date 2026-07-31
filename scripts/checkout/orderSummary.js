@@ -184,6 +184,8 @@ renderCheckoutHeader();
         renderOrderSummary();
         renderPaymentSummary();
 
+        
+
         // We can delete the code below (from the original solution)
         // because instead of using the DOM to update the page directly
         // we can use MVC and re-render everything. This will make sure
