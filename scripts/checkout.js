@@ -6,9 +6,19 @@ import { loadProducts } from "../data/products.js";
 // import '../data/backend-practice.js';
 
 
-loadProducts(() => {
-    renderCheckoutHeader()
-    renderOrderSummary();
-    renderPaymentSummary();
+new Promise((resolve) => {
+    loadProducts(() => {
+        resolve();
+    });
+    }).then(() => {
+        renderCheckoutHeader()
+        renderOrderSummary();
+        renderPaymentSummary();
 });
 
+
+/* loadProducts(() => {
+   
+// });
+
+*/
