@@ -1,6 +1,6 @@
 import { cart, removeFromCart, updateCartQuantity, updateDeliveryOption,updateQuantity } from "../../data/cart.js";
 import { products,getProduct } from "../../data/products.js";
-import { formatCurrency } from "../utils/money.js";
+import  formatCurrency from "../utils/money.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from "./paymentSummary.js";
@@ -9,6 +9,8 @@ import { renderCheckoutHeader } from "./checkoutHeader.js";
 export function renderOrderSummary() {
   let cartSummaryHTML = ``;
 
+  
+  
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
 
@@ -17,10 +19,7 @@ export function renderOrderSummary() {
     const deliveryOptionId = cartItem.deliveryOptionId;
 
     const deliveryOption = getDeliveryOption(deliveryOptionId)
-
-
     
-
     const today = dayjs();
     const deliverDate = today.add(
       deliveryOption.deliveryDays,
@@ -46,7 +45,7 @@ export function renderOrderSummary() {
                   ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                 ${matchingProduct.getPrice()}
+                 ${formatCurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>

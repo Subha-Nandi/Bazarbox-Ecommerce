@@ -1,10 +1,17 @@
 import { cart, addToCart, updateCartQuantity } from "../data/cart.js";
-import { products, loadProducts } from "../data/products.js";
+import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
-loadProducts(renderProductsGrid);
+// loadProducts(renderProductsGrid);
+
+
+
+
+renderProductsGrid();
 
 function renderProductsGrid() {
+
+   
 
     document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
 
@@ -24,14 +31,14 @@ function renderProductsGrid() {
 
             <div class="product-rating-container">
                 <img class="product-rating-stars"
-                src="${product.getStarsUrl()}">
+                src="images/ratings/rating-${product.rating.stars * 10}.png">
                 <div class="product-rating-count link-primary">
                 ${product.rating.count}
                 </div>
             </div>
 
             <div class="product-price">
-                ${product.getPrice()}
+               $${(product.priceCents / 100).toFixed(2)}
             </div>
 
             <div class="product-quantity-container">
@@ -49,7 +56,6 @@ function renderProductsGrid() {
                 </select>
             </div>
 
-            ${product.extraInfoHTML()}
 
             <div class="product-spacer"></div>
 

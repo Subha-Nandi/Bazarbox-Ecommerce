@@ -33,7 +33,7 @@ class Product {
     return `images/ratings/rating-${this.rating.stars * 10}.png`
   }
 
-  getPrice() {
+   getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
 
@@ -59,6 +59,7 @@ class Clothing extends Product {
   }
 }
 
+/*
 export function loadProductsFetch() {
  const promise =  fetch(
     'https://supersimplebackend.dev/products'
@@ -74,7 +75,7 @@ export function loadProductsFetch() {
 
     console.log('load products');
   }).catch((error) => {
-    console.log('Unexpected error occured. please try again later')
+    console.log('Unexpected error occured. please try again later!', err);
   })
 
   return promise;
@@ -84,7 +85,8 @@ export function loadProductsFetch() {
 loadProductsFetch().then(() => {
   console.log('next step')
 })
-  */
+  
+
 
 export let products = [];
 
@@ -106,7 +108,7 @@ export function loadProducts(fun) {
   xhr.send();
 }
 
-/*
+*/
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -766,10 +768,10 @@ export const products = [
       "mens"
     ]
   }
-].map((productsDetails) => {
-  if(productsDetails.type === 'clothing'){
-    return new Clothing(productsDetails);
-  }
-  return new Product(productsDetails);
-});
-*/
+]
+// .map((productsDetails) => {
+//   if(productsDetails.type === 'clothing'){
+//     return new Clothing(productsDetails);
+//   }
+//   return new Product(productsDetails);
+// });
