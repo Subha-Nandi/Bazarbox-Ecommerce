@@ -11,7 +11,6 @@ function renderOrdersList() {
   const orderList =
     JSON.parse(localStorage.getItem('orderList')) || [];
 
-
   orderList.forEach((order) => {
 
     ordersHTML += `

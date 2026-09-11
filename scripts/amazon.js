@@ -4,14 +4,57 @@ import { formatCurrency } from "./utils/money.js";
 
 // loadProducts(renderProductsGrid);
 
+const searchInput = document.querySelector('.js-search-bar');
+const searchButton = document.querySelector('.js-search-button');
 
 
 
-renderProductsGrid();
+function searchProducts() {
 
-function renderProductsGrid() {
+  const searchText = searchInput.value.toLowerCase().trim();
 
-   
+  
+  const matchingProducts = products.filter((product) => {
+
+    return product.keywords.some((keyword) => {
+      return keyword.toLowerCase().includes(searchText);
+    });
+
+  });
+
+  if(matchingProducts.length === 0){
+    document.querySelector('.js-products-grid').innerHTML = `
+      <div class="no-results">
+        No searched products found.
+      </div>
+    `;
+    return;
+  }
+
+
+  renderProductsGrid(matchingProducts);
+
+   if (searchText === '') { 
+    renderProducts(products); 
+    return; }
+
+}
+
+searchButton.addEventListener('click', () => {
+  searchProducts();
+});
+
+searchInput.addEventListener('input', () => {
+  searchProducts();
+});
+
+
+
+renderProductsGrid(products);
+
+
+
+function renderProductsGrid(products) {
 
     document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
 

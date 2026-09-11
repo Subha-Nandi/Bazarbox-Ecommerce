@@ -3,7 +3,7 @@ import { getProduct } from "./products.js";
 
 
 
-const orderList = JSON.parse(localStorage.getItem('ordersList')) || [];
+const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
 
 function saveOrderList(orderList) {
     localStorage.setItem("orderList", JSON.stringify(orderList));
