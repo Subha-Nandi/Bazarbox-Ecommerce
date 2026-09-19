@@ -1,5 +1,7 @@
 import formatCurrency from "../scripts/utils/money.js";
 
+export let products = [];
+
 export function getProduct(productId) {
   let matchingProduct;
 
@@ -33,7 +35,7 @@ class Product {
     return `images/ratings/rating-${this.rating.stars * 10}.png`
   }
 
-   getPrice() {
+  getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
 
@@ -59,56 +61,37 @@ class Clothing extends Product {
   }
 }
 
-/*
-export function loadProductsFetch() {
- const promise =  fetch(
-    'https://supersimplebackend.dev/products'
-  ).then((response) => {
-    return response.json();
-  }).then((productsData) => {
-    products = productsData.map((productsDetails) => {
+
+export async function loadProductsFetch() {
+
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/product/all-products'
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetched products");
+    }
+
+    const productsData = await response.json();
+
+    products = productsData.products.map((productsDetails) => {
       if (productsDetails.type === 'clothing') {
         return new Clothing(productsDetails);
       }
       return new Product(productsDetails);
     });
 
-    console.log('load products');
-  }).catch((error) => {
-    console.log('Unexpected error occured. please try again later!', err);
-  })
 
-  return promise;
+    console.log(products);
+
+  } catch (error) {
+    console.log('failed to fetched products', error);
+  }
 }
+
 
 /*
-loadProductsFetch().then(() => {
-  console.log('next step')
-})
-  
-
-
-export let products = [];
-
-export function loadProducts(fun) {
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-    products = JSON.parse(xhr.response).map((productsDetails) => {
-      if (productsDetails.type === 'clothing') {
-        return new Clothing(productsDetails);
-      }
-      return new Product(productsDetails);
-    });
-
-    fun();
-  });
-
-  xhr.open('GET', 'https://supersimplebackend.dev/products');
-  xhr.send();
-}
-
-*/
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -775,3 +758,5 @@ export const products = [
 //   }
 //   return new Product(productsDetails);
 // });
+
+*/

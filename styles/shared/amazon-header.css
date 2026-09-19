@@ -40,7 +40,8 @@
 
 .amazon-logo {
   width: 100px;
-  margin-top: 5px;
+  margin-top: 0px;
+  padding: 0px;
 }
 
 .amazon-mobile-logo {

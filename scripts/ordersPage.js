@@ -11,6 +11,15 @@ function renderOrdersList() {
   const orderList =
     JSON.parse(localStorage.getItem('orderList')) || [];
 
+if (orderList.length === 0) {
+   return document.querySelector('.order-grid-js').innerHTML = `
+        <div>
+            <p>No orders found.</p>
+        </div>
+    `;
+}
+
+
   orderList.forEach((order) => {
 
     ordersHTML += `
