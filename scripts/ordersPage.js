@@ -1,23 +1,62 @@
-import {} from "../data/orders.js";
-import {getProduct} from '../../data/products.js';
-import {formatCurrency} from '../scripts/utils/money.js';
-import { updateCartQuantity, saveTostorage } from "../../data/cart.js";
+import { } from "../data/orders.js";
+import { getProduct, loadProductsFetch } from '../../data/products.js';
+import { formatCurrency } from '../scripts/utils/money.js';
+import { updateCartQuantity,loadFromStorage as loadCart } from "../../data/cart.js";
+
+loadOrdersPage();
+
+async function loadOrdersPage() {
+  await loadProductsFetch();
+  await loadCart();
+  await loadOrdersList();
+console.log(updateCartQuantity())
+  
+
+}
 
 
-function renderOrdersList() {
+
+export async function loadOrdersList() {
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/orderList/view-orders'
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetched products");
+    }
+
+    const data = await response.json();
+
+    const orderList = data.ordersList;
+    console.log(orderList)
+    
+
+
+     renderOrdersList(orderList);
+
+
+  } catch (error) {
+    console.log('failed to fetched products', error);
+  }
+}
+
+
+
+function renderOrdersList(orderList) {
 
   let ordersHTML = '';
 
-  const orderList =
-    JSON.parse(localStorage.getItem('orderList')) || [];
+  // const orderList =
+  // JSON.parse(localStorage.getItem('orderList')) || [];
 
-if (orderList.length === 0) {
-   return document.querySelector('.order-grid-js').innerHTML = `
+  if (orderList.length === 0) {
+    return document.querySelector('.order-grid-js').innerHTML = `
         <div>
             <p>No orders found.</p>
         </div>
     `;
-}
+  }
 
 
   orderList.forEach((order) => {
@@ -64,12 +103,11 @@ if (orderList.length === 0) {
 
         <div class="order-details-grid">
 
-          ${
-            order.products.map((cartItem) => {
+          ${order.products.map((cartItem) => {
 
-              const product = getProduct(cartItem.productId);
+      const product = getProduct(cartItem.productId);
 
-              return `
+      return `
                 <div class="product-image-container">
                   <img src="${product.image}">
                 </div>
@@ -108,8 +146,8 @@ if (orderList.length === 0) {
                   </a>
                 </div>
               `;
-            }).join('')
-          }
+    }).join('')
+      }
 
         </div>
       </div>
@@ -118,14 +156,13 @@ if (orderList.length === 0) {
 
 
   // IMPORTANT: outside the forEach
+  document.querySelector('.js-cart-quantity').innerHTML = `${updateCartQuantity()}`;
+
   document.querySelector('.order-grid-js').innerHTML = ordersHTML;
 
-  document.querySelector('.js-cart-quantity').innerHTML = `${updateCartQuantity()}`;
-    saveTostorage();
 }
 
 
-renderOrdersList();
 
 
 

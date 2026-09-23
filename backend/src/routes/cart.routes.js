@@ -10,7 +10,7 @@ router.post('/delete', cartController.deleteCartItem);
 
 router.post('/update-quantity', cartController.updateProductQuantity);
 
-router.get('/get-products', cartController.getCart);
+router.get('/get-all-carts', cartController.getCart);
 
 
 module.exports = router;

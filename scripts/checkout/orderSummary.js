@@ -1,4 +1,4 @@
-import { cart, removeFromCart, updateCartQuantity, updateDeliveryOption,updateQuantity } from "../../data/cart.js";
+import { cart, removeFromCart, loadFromStorage,updateCartQuantity, updateDeliveryOption,updateQuantity } from "../../data/cart.js";
 import { products,getProduct } from "../../data/products.js";
 import  formatCurrency from "../utils/money.js";
 import dayjs from "https://cdn.jsdelivr.net/npm/dayjs@1.11.23/+esm";
@@ -7,13 +7,16 @@ import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.j
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
 
-export function renderOrderSummary() {
+
+
+export async function renderOrderSummary() {
   let cartSummaryHTML = ``;
 
-  
-  
+
+
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
+
 
     const matchingProduct = getProduct(productId);
 
@@ -29,6 +32,7 @@ export function renderOrderSummary() {
     const dateString = deliverDate.format(
       'dddd, MMMM D'
     );
+
 
     cartSummaryHTML +=
       `
