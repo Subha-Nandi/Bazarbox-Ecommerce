@@ -63,31 +63,16 @@ async function getOrdersList(req, res) {
     try {
         const ordersList = await orderModel.find();
 
-        if (!ordersList) {
-            return res.status(404).json({
-                message: "can't find any orders"
-            })
-        }
-
-
-        if (ordersList.length === 0) {
-            return res.status(400).json({
-                message: "There is ) orders to show"
-            })
-        }
-
-
         res.status(200).json({
-            message: "Orders fethed successffuly",
+            message: "Orders fetched successfully",
             ordersList
-        })
-
+        });
 
     } catch (err) {
         res.status(500).json({
-            message: "failed to fetch orders",
-            Error: err.message
-        })
+            message: "Failed to fetch orders",
+            error: err.message
+        });
     }
 }
 

@@ -1,11 +1,13 @@
 import { loadOrdersList } from "../data/orders.js";
 import { getProduct, loadProductsFetch } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
-import { updateCartQuantity, loadFromStorage as loadCart } from "../data/cart.js";
+import { updateCartQuantity, loadCart } from "../data/cart.js";
 
-loadOrdersPage();
 
 async function loadOrdersPage() {
+
+
+
   await loadProductsFetch();
   await loadCart();
  const orders = await loadOrdersList();
@@ -19,11 +21,7 @@ function renderOrdersList(orderList) {
   let ordersHTML = '';
 
   if (orderList.length === 0) {
-    return document.querySelector('.order-grid-js').innerHTML = `
-        <div>
-            <p>No orders found.</p>
-        </div>
-    `;
+    return document.querySelector('.page-title').innerHTML = 'No orders found.'    
   }
 
 
@@ -123,15 +121,17 @@ function renderOrdersList(orderList) {
     `;
   });
 
+  
 
   // IMPORTANT: outside the forEach
   document.querySelector('.js-cart-quantity').innerHTML = `${updateCartQuantity()}`;
 
   document.querySelector('.order-grid-js').innerHTML = ordersHTML;
 
-
-
 }
+
+loadOrdersPage();
+
 
 
 

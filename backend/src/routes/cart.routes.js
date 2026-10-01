@@ -6,9 +6,12 @@ const cartController = require('../controllers/cart.controller');
 
 router.post('/add', cartController.addToCart);
 
-router.post('/delete', cartController.deleteCartItem);
+router.delete('/delete', cartController.deleteCartItem);
 
-router.post('/update-quantity', cartController.updateProductQuantity);
+router.patch('/update-quantity', cartController.updateProductQuantity);
+
+router.patch('/update-delivery-option', cartController.updateDeliveryOption);
+
 
 router.get('/get-all-carts', cartController.getCart);
 

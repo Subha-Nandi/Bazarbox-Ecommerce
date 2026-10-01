@@ -168,6 +168,47 @@ async function updateProductQuantity(req, res) {
     }
 }
 
-module.exports = { getCart, addToCart, deleteCartItem, updateProductQuantity };
+
+const updateDeliveryOption = async (req, res) => {
+    try {
+        const { productId, deliveryOptionId } = req.body;
+
+        const cart = await cartModel.findOne();
+
+        if (!cart) {
+            return res.status(404).json({
+                message: 'Cart not found'
+            });
+        }
+
+        const matchingItem = cart.products.find(
+            (cartItem) => cartItem.productId === productId
+        );
+
+        if (!matchingItem) {
+            return res.status(404).json({
+                message: 'Product not found in cart'
+            });
+        }
+
+        matchingItem.deliveryOptionId = deliveryOptionId;
+
+        await cart.save();
+
+        res.status(200).json({
+            message: 'Delivery option updated successfully',
+            cart
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Failed to update delivery option'
+        });
+    }
+};
+
+
+module.exports = { getCart, addToCart, deleteCartItem, updateProductQuantity, updateDeliveryOption };
 
 

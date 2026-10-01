@@ -1,4 +1,4 @@
-import { cart, removeFromCart, loadFromStorage,updateCartQuantity, updateDeliveryOption,updateQuantity } from "../../data/cart.js";
+import { cart, removeFromCart, loadCart,updateCartQuantity, updateDeliveryOption,updateQuantity } from "../../data/cart.js";
 import { products,getProduct } from "../../data/products.js";
 
 import  formatCurrency from "../utils/money.js";
@@ -14,6 +14,7 @@ import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 
 export async function renderOrderSummary() {
+ 
   let cartSummaryHTML = ``;
 
 

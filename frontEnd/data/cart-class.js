@@ -6,12 +6,12 @@ class Cart {
 
     // constructor(localStorageKey) {
     //     this.localStorageKey = localStorageKey;
-    //     this.loadFromStorage();
+    //     this.loadCart();
     // }
 
 
 
-    loadFromStorage() {
+    loadCart() {
         this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
 
         if (!this.cartItems) {
@@ -113,7 +113,7 @@ class Cart {
     }
 
 
-    totalCartQuantity() {
+    updateCartQuantity() {
         let totalQuantity = 0;
         this.cartItems.forEach((cartItem) => {
             totalQuantity += Number(cartItem.quantity);

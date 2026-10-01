@@ -1,11 +1,11 @@
-import { loadFromStorage, addToCart, updateCartQuantity } from "../data/cart.js";
+import { loadCart, addToCart, updateCartQuantity } from "../data/cart.js";
 import { products, loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
 // loadProducts(renderProductsGrid);
 async function loadPage() {
   await loadProductsFetch();
-  await loadFromStorage();
+  await loadCart();
   await renderProductsGrid(products);
 }
 
@@ -63,7 +63,6 @@ function renderProductsGrid(products) {
 
   document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
 
-  console.log(updateCartQuantity())
 
   let productsHTML = '';
 
@@ -126,7 +125,8 @@ function renderProductsGrid(products) {
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 
-  document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+  document.querySelectorAll('.js-add-to-cart').
+  forEach((button) => {
 
     button.addEventListener('click', () => {
 
@@ -135,9 +135,13 @@ function renderProductsGrid(products) {
       // Current product container
       const productContainer = button.closest('.product-container');
       const selectElement = productContainer.querySelector('.js-quantity-selector');
+
       const quantity = Number(selectElement.value) || 1;
       addToCart(productId, quantity);
       selectElement.value = "1";
+
+      console.log(productId);
+      console.log(quantity)
 
       // Update cart UI
       updateCartQuantity();

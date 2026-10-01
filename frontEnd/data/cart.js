@@ -1,123 +1,161 @@
+// import {loadCheckoutPage} from '../scripts/checkout.js'/
+// import { renderCheckoutHeader } from "../scripts/checkout/checkoutHeader";
+
 export let cart = [];
 
 
-export async function loadFromStorage(){
+export async function loadCart() {
     // cart = JSON.parse(localStorage.getItem('cart')) || [];
 
- try {
-    const response = await fetch(
-      'http://localhost:3000/api/cart/get-all-carts'
-    );
+    try {
+        const response = await fetch(
+            'http://localhost:3000/api/cart/get-all-carts'
+        );
 
-    if (!response.ok) {
-      throw new Error("Failed to fetched products");
+        if (!response.ok) {
+            throw new Error("Failed to fetched products");
+        }
+
+        const productsData = await response.json();
+
+        cart = productsData.cart[0].products;
+
+
+    } catch (error) {
+        console.log('failed to fetched products', error);
     }
-
-    const productsData = await response.json();
-
-    cart = productsData.cart[0].products;
-
-    // const updateCartQuantity = () => {
-    //     let cartQuantity = 0;
-    //     cart.forEach((cartItem) => {
-    //         cartQuantity += cartItem.quantity;
-    //     });
-    //     return cartQuantity; 
-    // }
-
-
-  } catch (error) {
-    console.log('failed to fetched products', error);
-  }
 
 }
 
 
-// export function saveTostorage() {
-//     localStorage.setItem('cart', JSON.stringify(cart));
-// }
+export async function addToCart(productId, number) {
 
+    const quantity = Number(number);
 
-export function addToCart(productId,number) {
-    let matchingItem;
-
-    cart.forEach((cartItem) => {
-        if (productId === cartItem.productId) {
-            matchingItem = cartItem;
-        }
-    });
-
-    if (matchingItem) {
-        matchingItem.quantity += Number(number);
-    }
-    else {
-        cart.push({
-            productId: productId,
-            quantity: Number(number),
-            deliveryOptionId: '1'
+    try {
+        const response = await fetch('http://localhost:3000/api/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: productId,
+                quantity: quantity
+            })
         });
-    }
-    document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity() || 0;
 
-}
+        const data = await response.json();
 
-
-export function removeFromCart(productId) {
-    const newCart = [];
-
-    cart.forEach((cartItem) => {
-        if (cartItem.productId != productId) {
-            newCart.push(cartItem);
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to add product to cart');
         }
-    });
 
-    cart = newCart;
-document.querySelector('.js-checkout-cart-quantity').innerHTML = `${updateCartQuantity()} items`;
+        await loadCart();
+
+        document.querySelector('.js-cart-quantity').innerHTML =
+            updateCartQuantity() || 0;
+
+
+
+
+    } catch (error) {
+        console.error('Error adding product to cart:', error);
+    }
 }
 
 
-export function updateCartQuantity(){
+
+export async function removeFromCart(productId) {
+    // const newCart = [];
+
+    try {
+        const response = await fetch('http://localhost:3000/api/cart/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: productId
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to delete product to cart');
+        }
+        loadCart();
+
+        // loadCheckoutPage();
+
+    } catch (error) {
+        console.error('Error delete product to cart:', error);
+    }
+
+}
+
+
+
+
+
+export async function updateDeliveryOption(productId, deliveryOptionId) {
+
+    try {
+        const response = await fetch('http://localhost:3000/api/cart/update-delivery-option', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: productId,
+                deliveryOptionId: deliveryOptionId
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to update product delivery option');
+        }
+        // loadCheckoutPage();
+        
+        await loadCart();
+
+
+
+        // Update cart quantity after backend succeeds
+
+
+    } catch (error) {
+        console.error('Error adding product to cart:', error);
+    }
+
+}
+
+
+export function updateCartQuantity() {
     let cartQuantity = 0;
-        cart.forEach((cartItem) => {
-            cartQuantity += cartItem.quantity;
-        });
-        return cartQuantity;  
-}
-
-
- export  function updateDeliveryOption(productId, deliveryOptionId){
-    let matchingItem;
-
     cart.forEach((cartItem) => {
-        if (productId === cartItem.productId) {
-            matchingItem = cartItem;
-        }
+        cartQuantity += cartItem.quantity;
     });
-
-    matchingItem.deliveryOptionId = deliveryOptionId;
-
-} 
+    return cartQuantity;
+}
 
 
 export function updateQuantity(productId, newQuantity) {
-  let matchingItem;
+    let matchingItem;
 
-  cart.forEach((cartItem) => {
-    if (productId === cartItem.productId) {
-      matchingItem = cartItem;
-    }
-  });
-
-  matchingItem.quantity = newQuantity;
-
-}
-
-
-export function totalCartQuantity(){
-   let  totalQuantity  = 0;
     cart.forEach((cartItem) => {
-        totalQuantity += Number(cartItem.quantity);
-    })
+        if (productId === cartItem.productId) {
+            matchingItem = cartItem;
+        }
+    });
 
-    return totalQuantity;
+    matchingItem.quantity = newQuantity;
+
 }
+
+
+
+
+

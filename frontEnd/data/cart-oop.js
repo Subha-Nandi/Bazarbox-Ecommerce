@@ -2,7 +2,7 @@ function Cart(localStorageKey) {
     const cart = {
         cartItems: undefined,
 
-        loadFromStorage() {
+        loadCart() {
             this.cartItems = JSON.parse(localStorage.getItem(localStorageKey));
 
             if (!this.cartItems) {
@@ -108,7 +108,7 @@ function Cart(localStorageKey) {
 
 
 
-        totalCartQuantity() {
+        updateCartQuantity() {
             let totalQuantity = 0;
             this.cartItems.forEach((cartItem) => {
                 totalQuantity += Number(cartItem.quantity);
@@ -125,12 +125,12 @@ function Cart(localStorageKey) {
 const cart = Cart('cart-opp');
 const businessCart = Cart('cart-business');
 
-cart.loadFromStorage();
+cart.loadCart();
 
 
 
 
-businessCart.loadFromStorage();
+businessCart.loadCart();
 
 
 cart.addToCart('54e0eccd-8f36-462b-b68a-8182611d9add', 2);
