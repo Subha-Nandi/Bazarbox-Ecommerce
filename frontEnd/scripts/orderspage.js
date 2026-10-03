@@ -1,7 +1,7 @@
 import { loadOrdersList } from "../data/orders.js";
 import { getProduct, loadProductsFetch } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
-import { updateCartQuantity, loadCart } from "../data/cart.js";
+import { updateCartQuantity, loadCart, addToCart } from "../data/cart.js";
 
 
 async function loadOrdersPage() {
@@ -10,8 +10,8 @@ async function loadOrdersPage() {
 
   await loadProductsFetch();
   await loadCart();
- const orders = await loadOrdersList();
- renderOrdersList(orders);
+  const orders = await loadOrdersList();
+  renderOrdersList(orders);
 
 }
 
@@ -21,7 +21,7 @@ function renderOrdersList(orderList) {
   let ordersHTML = '';
 
   if (orderList.length === 0) {
-    return document.querySelector('.page-title').innerHTML = 'No orders found.'    
+    return document.querySelector('.page-title').innerHTML = 'No orders found.'
   }
 
 
@@ -93,16 +93,17 @@ function renderOrdersList(orderList) {
                     Quantity: ${cartItem.quantity}
                   </div>
 
-                  <button class="buy-again-button button-primary">
-                    <img
-                      class="buy-again-icon"
-                      src="images/icons/buy-again.png"
-                    >
-                    <span class="buy-again-message">
-                      Buy it again
-                    </span>
-                  </button>
-
+                    <button class="buy-again-button button-primary js-buy-again"
+                        data-product-id="${cartItem.productId}"
+                      >
+                      <img
+                        class="buy-again-icon"
+                        src="images/icons/buy-again.png"
+                      >
+                          <span class="buy-again-message">
+                            Buy it again
+                          </span>
+                      </button>
                 </div>
 
                 <div class="product-actions">
@@ -121,12 +122,41 @@ function renderOrdersList(orderList) {
     `;
   });
 
-  
+
 
   // IMPORTANT: outside the forEach
   document.querySelector('.js-cart-quantity').innerHTML = `${updateCartQuantity()}`;
 
   document.querySelector('.order-grid-js').innerHTML = ordersHTML;
+
+
+  document.querySelectorAll('.js-buy-again').forEach((button) => {
+
+    button.addEventListener('click', async () => {
+
+      const productId = button.dataset.productId;
+
+      try {
+
+        await addToCart(productId, 1);
+
+        button.querySelector('.buy-again-message').innerHTML =
+          'Added ✓';
+
+        setTimeout(() => {
+          button.querySelector('.buy-again-message').innerHTML =
+            'Buy it again';
+        }, 1000);
+
+      } catch (error) {
+
+        console.log('Failed to add product to cart:', error);
+
+      }
+
+    });
+
+  });
 
 }
 
