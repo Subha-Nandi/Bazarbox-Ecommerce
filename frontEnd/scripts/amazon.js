@@ -8,7 +8,7 @@ import { formatCurrency } from "./utils/money.js";
 async function loadPage() {
   await loadProductsFetch();
   await loadCart();
-  await renderProductsGrid(products);
+  renderProductsGrid(products);
 }
 
 loadPage();
@@ -89,7 +89,7 @@ function renderProductsGrid(products) {
             </div>
 
             <div class="product-price">
-               $${(formatCurrency(product.priceCents))}
+               ${(formatCurrency(product.priceCents))}
             </div>
 
             <div class="product-quantity-container">
@@ -142,10 +142,7 @@ function renderProductsGrid(products) {
       addToCart(productId, quantity);
       selectElement.value = "1";
 
-      console.log(productId);
-      console.log(quantity)
 
-      // Update cart UI
       updateCartQuantity();
     });
 

@@ -13,15 +13,11 @@ import { loadCart } from "../data/cart.js";
 
 export async function loadCheckoutPage() {
 
-    console.log('🔥 CHECKOUT.JS LOADED:', window.location.pathname);
-
-    // First load products
+   
     await loadProductsFetch();
 
-    // Then load cart
     await loadCart();
 
-    // Only after both are loaded, render the page
     renderCheckoutHeader();
     renderOrderSummary();
     renderPaymentSummary();

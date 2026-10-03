@@ -103,7 +103,7 @@ export async function renderOrderSummary() {
 
       const priceString = deliveryOption.priceCents === 0
         ? 'FREE '
-        : `$${formatCurrency(deliveryOption.priceCents)} -`;
+        : `${formatCurrency(deliveryOption.priceCents)} -`;
 
       const isChecked =
         cartItem.deliveryOptionId === deliveryOption.id;

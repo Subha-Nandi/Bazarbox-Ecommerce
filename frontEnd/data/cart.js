@@ -84,9 +84,18 @@ export async function removeFromCart(productId) {
         if (!response.ok) {
             throw new Error(data.message || 'Failed to delete product to cart');
         }
-        loadCart();
 
-        // loadCheckoutPage();
+
+
+
+        await loadCart();
+
+        const headerHtml = `Checkout (<a class="return-to-home-link "
+                     href="amazon.html">  ${updateCartQuantity()} items</a>)`;
+
+
+        document.querySelector('.js-checkout-cart-quantity').innerHTML = headerHtml;
+
 
     } catch (error) {
         console.error('Error delete product to cart:', error);
@@ -117,13 +126,17 @@ export async function updateDeliveryOption(productId, deliveryOptionId) {
         if (!response.ok) {
             throw new Error(data.message || 'Failed to update product delivery option');
         }
-        // loadCheckoutPage();
-        
+
         await loadCart();
 
+        const headerHtml = `Checkout (<a class="return-to-home-link "
+                     href="amazon.html">  ${updateCartQuantity()} items</a>)`;
 
 
-        // Update cart quantity after backend succeeds
+        document.querySelector('.js-checkout-cart-quantity').innerHTML = headerHtml;
+
+
+
 
 
     } catch (error) {
