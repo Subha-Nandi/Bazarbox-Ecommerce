@@ -1,4 +1,6 @@
 import formatCurrency from "../scripts/utils/money.js";
+import { showLoading, hideLoading }
+    from '../scripts/utils/loadingSpinner.js';
 
 export let products = [];
 
@@ -53,6 +55,9 @@ class Clothing extends Product {
 
 export async function loadProductsFetch() {
 
+  showLoading();
+
+
   try {
     const response = await fetch(
       'http://localhost:3000/api/product/all-products'
@@ -75,7 +80,11 @@ export async function loadProductsFetch() {
 
   } catch (error) {
     console.log('failed to fetched products', error);
-  }
+  }finally {
+
+        hideLoading();
+
+    }
 }
 
 export function getProduct(productId) {
