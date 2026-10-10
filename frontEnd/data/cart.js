@@ -91,7 +91,7 @@ export async function removeFromCart(productId) {
         await loadCart();
 
         const headerHtml = `Checkout (<a class="return-to-home-link "
-                     href="amazon.html">  ${updateCartQuantity()} items</a>)`;
+                     href="bazarbox.html">  ${updateCartQuantity()} items</a>)`;
 
 
         document.querySelector('.js-checkout-cart-quantity').innerHTML = headerHtml;
@@ -130,7 +130,7 @@ export async function updateDeliveryOption(productId, deliveryOptionId) {
         await loadCart();
 
         const headerHtml = `Checkout (<a class="return-to-home-link "
-                     href="amazon.html">  ${updateCartQuantity()} items</a>)`;
+                     href="bazarbox.html">  ${updateCartQuantity()} items</a>)`;
 
 
         document.querySelector('.js-checkout-cart-quantity').innerHTML = headerHtml;

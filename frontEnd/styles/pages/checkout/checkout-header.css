@@ -26,13 +26,13 @@
   width: 150px;
 }
 
-.amazon-logo {
+.bazarbox-logo {
   height: 25px;
   width: 100px;
   margin-top: 5px;
 }
 
-.amazon-mobile-logo {
+.bazarbox-mobile-logo {
   display: none;
 }
 
@@ -45,11 +45,11 @@
     width: auto;
   }
 
-  .amazon-logo {
+  .bazarbox-logo {
     display: none;
   }
 
-  .amazon-mobile-logo {
+  .bazarbox-mobile-logo {
     display: inline-block;
     height: 35px;
     margin-top: 5px;
