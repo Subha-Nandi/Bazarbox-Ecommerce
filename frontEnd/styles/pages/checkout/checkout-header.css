@@ -27,8 +27,9 @@
 }
 
 .amazon-logo {
+  height: 25px;
   width: 100px;
-  margin-top: 12px;
+  margin-top: 5px;
 }
 
 .amazon-mobile-logo {
