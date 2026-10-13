@@ -2,8 +2,8 @@
 
 A full-stack e-commerce web application built with JavaScript, Node.js, Express.js, and MongoDB, featuring dynamic product management, product search, shopping cart functionality, and order management through a responsive, multi-page interface.
 
-**Live Demo:** [View Website] 
-**Source Code:** [GitHub Repository]
+**Live Demo:** https://bazarbox-ecommerce.vercel.app/
+**Source Code:** https://github.com/Subha-Nandi/Bazarbox-Ecommerce
 
 ## Features
 
