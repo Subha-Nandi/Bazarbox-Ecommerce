@@ -1,6 +1,3 @@
-// import {loadCheckoutPage} from '../scripts/checkout.js'/
-// import { renderCheckoutHeader } from "../scripts/checkout/checkoutHeader";
-
 export let cart = [];
 
 

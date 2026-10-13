@@ -4,7 +4,6 @@ import { loadOrdersList } from '../data/orders.js'
 async function loadTrackingPage() {
   await loadProductsFetch();
 
-  // Get the parameters from the URL
   const url = new URL(window.location.href);
 
   const orderId = url.searchParams.get('orderId');
@@ -15,13 +14,11 @@ async function loadTrackingPage() {
 
   const orderList = await loadOrdersList();
 
-  // Find the correct order
   const order = orderList.find((order) => {
     return order._id === orderId;
   });
 
 
-  // Check if order exists
   if (!order) {
 
     document.querySelector('.order-tracking').innerHTML = `
@@ -30,13 +27,11 @@ async function loadTrackingPage() {
 
   } else {
 
-    // Find the correct product inside this order
     const cartItem = order.products.find((cartItem) => {
       return cartItem.productId === productId;
     });
 
 
-    // Check if product exists
     if (!cartItem) {
 
       document.querySelector('.order-tracking').innerHTML = `
@@ -45,25 +40,20 @@ async function loadTrackingPage() {
 
     } else {
 
-      // Get the full product information
       const product = getProduct(cartItem.productId);
 
-      // Display product name
       document.querySelector('.js-product-name').innerHTML =
         product.name;
 
 
-      // Display quantity
       document.querySelector('.js-product-quantity').innerHTML =
         `Quantity: ${cartItem.quantity}`;
 
 
-      // Display product image
       document.querySelector('.js-product-image').src =
         product.image;
 
 
-      // Display delivery date
       document.querySelector('.delivery-date').innerHTML =
         'Arriving soon';
     }

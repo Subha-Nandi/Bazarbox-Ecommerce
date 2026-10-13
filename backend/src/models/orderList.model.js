@@ -8,18 +8,18 @@ const orderListSchema = mongoose.Schema({
 
     orderDate: {
         type: String,
-        default: () =>  new Date().toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric"
-    })
+        default: () => new Date().toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric"
+        })
     },
 
-    products:{
+    products: {
         type: Array,
         required: true
     },
 
-    totalCents:{
+    totalCents: {
         type: Number,
         required: true
     }

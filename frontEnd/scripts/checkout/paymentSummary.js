@@ -4,7 +4,7 @@ import { deliveryOptions } from '../../data/deliveryOptions.js';
 import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import formatCurrency from '../utils/money.js';
-import { placeOrder} from '../../data/orders.js';
+import { placeOrder } from '../../data/orders.js';
 
 
 export function renderPaymentSummary() {
@@ -67,20 +67,18 @@ export function renderPaymentSummary() {
   document.querySelector('.js-place-order')
     .addEventListener('click', async () => {
 
-      try{
-     await placeOrder();
-      window.location.href = 'orders.html';
+      try {
+        await placeOrder();
+        window.location.href = 'orders.html';
 
-          
-      }catch(err){
+
+      } catch (err) {
         console.log(err);
       }
 
-
-
     });
 
- 
+
 }
 
 

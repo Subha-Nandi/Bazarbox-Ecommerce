@@ -20,7 +20,7 @@ async function getCart(req, res) {
 
         res.status(200).json({
             message: "fetched cart items successfully",
-             cart
+            cart
         });
 
     } catch (err) {
@@ -36,9 +36,9 @@ async function addToCart(req, res) {
     try {
         const { productId, deliveryOptionId } = req.body;
 
-        let {quantity} = req.body
+        let { quantity } = req.body
 
-        if(quantity === undefined){
+        if (quantity === undefined) {
             quantity = 1
         }
 

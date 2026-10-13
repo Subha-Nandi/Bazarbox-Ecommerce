@@ -4,7 +4,6 @@ import { formatCurrency } from "./utils/money.js";
 
 
 
-// loadProducts(renderProductsGrid);
 async function loadPage() {
   await loadProductsFetch();
   await loadCart();
@@ -128,25 +127,25 @@ function renderProductsGrid(products) {
 
 
   document.querySelectorAll('.js-add-to-cart').
-  forEach((button) => {
+    forEach((button) => {
 
-    button.addEventListener('click', () => {
+      button.addEventListener('click', () => {
 
-      const productId = button.dataset.productId;
+        const productId = button.dataset.productId;
 
-      // Current product container
-      const productContainer = button.closest('.product-container');
-      const selectElement = productContainer.querySelector('.js-quantity-selector');
+        // Current product container
+        const productContainer = button.closest('.product-container');
+        const selectElement = productContainer.querySelector('.js-quantity-selector');
 
-      const quantity = Number(selectElement.value) || 1;
-      addToCart(productId, quantity);
-      selectElement.value = "1";
+        const quantity = Number(selectElement.value) || 1;
+        addToCart(productId, quantity);
+        selectElement.value = "1";
 
 
-      updateCartQuantity();
+        updateCartQuantity();
+      });
+
     });
-
-  });
 
 
 

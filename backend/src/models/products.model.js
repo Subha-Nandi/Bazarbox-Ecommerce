@@ -7,7 +7,7 @@ const productSchema = mongoose.Schema({
         unique: true
     },
 
-    image:{
+    image: {
         type: String,
         required: true
     },
@@ -28,10 +28,10 @@ const productSchema = mongoose.Schema({
         }
     },
 
-     priceCents: {
-            type: Number,
-            required: true
-        },
+    priceCents: {
+        type: Number,
+        required: true
+    },
 
     keywords: {
         type: [String],

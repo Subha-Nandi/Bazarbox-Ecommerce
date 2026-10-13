@@ -1,7 +1,7 @@
-import { cart, removeFromCart, loadCart,updateCartQuantity, updateDeliveryOption,updateQuantity } from "../../data/cart.js";
-import { products,getProduct } from "../../data/products.js";
+import { cart, removeFromCart, loadCart, updateCartQuantity, updateDeliveryOption, updateQuantity } from "../../data/cart.js";
+import { products, getProduct } from "../../data/products.js";
 
-import  formatCurrency from "../utils/money.js";
+import formatCurrency from "../utils/money.js";
 
 import dayjs from "https://cdn.jsdelivr.net/npm/dayjs@1.11.23/+esm";
 
@@ -14,7 +14,7 @@ import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 
 export async function renderOrderSummary() {
- 
+
   let cartSummaryHTML = ``;
 
 
@@ -28,7 +28,7 @@ export async function renderOrderSummary() {
     const deliveryOptionId = cartItem.deliveryOptionId;
 
     const deliveryOption = getDeliveryOption(deliveryOptionId)
-    
+
     const today = dayjs();
     const deliverDate = today.add(
       deliveryOption.deliveryDays,
@@ -139,13 +139,13 @@ export async function renderOrderSummary() {
 
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
-        renderCheckoutHeader();
-        renderPaymentSummary();
+      renderCheckoutHeader();
+      renderPaymentSummary();
     });
   });
 
 
-renderCheckoutHeader();
+  renderCheckoutHeader();
 
   document.querySelectorAll('.js-delivery-option').
     forEach((element) => {
@@ -159,9 +159,9 @@ renderCheckoutHeader();
       });
     });
 
-    
 
-     document.querySelectorAll('.js-update-link')
+
+  document.querySelectorAll('.js-update-link')
     .forEach((link) => {
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
@@ -193,19 +193,6 @@ renderCheckoutHeader();
         renderOrderSummary();
         renderPaymentSummary();
 
-        
-
-        // We can delete the code below (from the original solution)
-        // because instead of using the DOM to update the page directly
-        // we can use MVC and re-render everything. This will make sure
-        // the page always matches the data.
-
-        // const quantityLabel = document.querySelector(
-        //   `.js-quantity-label-${productId}`
-        // );
-        // quantityLabel.innerHTML = newQuantity;
-
-        // updateCartQuantity();
       });
     });
 }
