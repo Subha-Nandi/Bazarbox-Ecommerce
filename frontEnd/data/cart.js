@@ -6,7 +6,7 @@ export async function loadCart() {
 
     try {
         const response = await fetch(
-            'http://localhost:3000/api/cart/get-all-carts'
+            'https://bazarbox-ecommerce-1.onrender.com/api/cart/get-all-carts'
         );
 
         if (!response.ok) {
@@ -30,7 +30,7 @@ export async function addToCart(productId, number) {
     const quantity = Number(number);
 
     try {
-        const response = await fetch('http://localhost:3000/api/cart/add', {
+        const response = await fetch('https://bazarbox-ecommerce-1.onrender.com/api/cart/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ export async function removeFromCart(productId) {
     // const newCart = [];
 
     try {
-        const response = await fetch('http://localhost:3000/api/cart/delete', {
+        const response = await fetch('https://bazarbox-ecommerce-1.onrender.com/api/cart/delete', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ export async function removeFromCart(productId) {
 export async function updateDeliveryOption(productId, deliveryOptionId) {
 
     try {
-        const response = await fetch('http://localhost:3000/api/cart/update-delivery-option', {
+        const response = await fetch('https://bazarbox-ecommerce-1.onrender.com/api/cart/update-delivery-option', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

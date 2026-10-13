@@ -1,7 +1,7 @@
 export async function loadOrdersList() {
   try {
     const response = await fetch(
-      'http://localhost:3000/api/orderList/view-orders'
+      'https://bazarbox-ecommerce-1.onrender.com/api/orderList/view-orders'
     );
 
     if (!response.ok) {
@@ -29,7 +29,7 @@ export async function loadOrdersList() {
 export async function placeOrder() {
     try {
         const response = await fetch(
-            'http://localhost:3000/api/orderList/placeOrder',
+            'https://bazarbox-ecommerce-1.onrender.com/api/orderList/placeOrder',
             {
                 method: 'POST',
                 headers: {

@@ -60,7 +60,7 @@ export async function loadProductsFetch() {
 
   try {
     const response = await fetch(
-      'http://localhost:3000/api/product/all-products'
+      'https://bazarbox-ecommerce-1.onrender.com/api/product/all-products'
     );
 
     if (!response.ok) {
