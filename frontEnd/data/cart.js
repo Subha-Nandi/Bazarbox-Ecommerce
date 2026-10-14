@@ -2,8 +2,7 @@ export let cart = [];
 
 
 export async function loadCart() {
-    // cart = JSON.parse(localStorage.getItem('cart')) || [];
-
+   
     try {
         const response = await fetch(
             'https://bazarbox-ecommerce-1.onrender.com/api/cart/get-all-carts'
@@ -63,7 +62,6 @@ export async function addToCart(productId, number) {
 
 
 export async function removeFromCart(productId) {
-    // const newCart = [];
 
     try {
         const response = await fetch('https://bazarbox-ecommerce-1.onrender.com/api/cart/delete', {

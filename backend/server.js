@@ -14,19 +14,3 @@ connectDB();
 app.listen(3000, () => {
  console.log('serevr is running in port 3000')
 });
-
-
-// const express = require('express');
-
-// const app = express();
-
-// app.get('/', (req, res) => {
-//     console.log('Request received');
-//     res.send('Server is working!');
-// });
-
-// app.listen(3000, () => {
-//     console.log('Server started on port 3000');
-// });
-
-

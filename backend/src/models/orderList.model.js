@@ -22,6 +22,12 @@ const orderListSchema = mongoose.Schema({
     totalCents: {
         type: Number,
         required: true
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        expires: 86400
     }
 })
 

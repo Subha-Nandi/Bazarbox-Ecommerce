@@ -15,7 +15,6 @@ export async function loadOrdersList() {
 
     return orderList;
 
-    // renderOrdersList(orderList);
 
 
   } catch (error) {

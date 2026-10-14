@@ -68,10 +68,14 @@ export function renderPaymentSummary() {
     .addEventListener('click', async () => {
 
       try {
-        await placeOrder();
+
+        totalItems
+        if(totalItems == 0){
+          alert("cart is empty nothing to placed order ")
+        }else{
+          await placeOrder();
         window.location.href = 'orders.html';
-
-
+        }
       } catch (err) {
         console.log(err);
       }

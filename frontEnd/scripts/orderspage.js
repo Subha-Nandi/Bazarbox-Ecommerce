@@ -60,7 +60,7 @@ function renderOrdersList(orderList) {
             </div>
 
             <div>
-              ${order.id}
+              ${order._id}
             </div>
           </div>
 
@@ -124,7 +124,6 @@ function renderOrdersList(orderList) {
 
 
 
-  // IMPORTANT: outside the forEach
   document.querySelector('.js-cart-quantity').innerHTML = `${updateCartQuantity()}`;
 
   document.querySelector('.order-grid-js').innerHTML = ordersHTML;
